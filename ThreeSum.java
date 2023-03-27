@@ -61,7 +61,7 @@ public class ThreeSum {
                             triplets.add(nums[j]);
                             triplets.add(nums[k]);
                         }
-                        if(!isRedundant(triplets, tripletsArr))
+                        if(!triplets.isEmpty() && !isRedundant(triplets, tripletsArr))
                             tripletsArr.add(triplets);
                     }
                 }
@@ -70,13 +70,16 @@ public class ThreeSum {
         }
 
         private boolean isRedundant(ArrayList<Integer> triplets, List<List<Integer>> tripletsArr) {
-
+            if(tripletsArr.isEmpty())
+                return false;
             Map<Integer, Integer> freq = new HashMap<>();
-            System.out.println("triplets: " + triplets);
-            for(var val: triplets)
-                freq.put(val, 0);
 
-            System.out.println(freq);
+            for(var val: triplets) {
+                if(freq.get(val) == null )
+                    freq.put(val, 1);
+                else
+                    freq.put(val, freq.get(val) + 1);
+            }
 
             for(var index : tripletsArr) {
                 for(var value: index) {
@@ -84,18 +87,13 @@ public class ThreeSum {
                         freq.put(value, freq.get(value) + 1);
                 }
 
-                System.out.println( " 2 : " + freq);
-
                 int count = 0;
-                for(var val: freq.keySet()) {
-                    System.out.print(" 3 : " + val + ", ");
-                    if(val >= 1)
-                        count ++;
+                for(var val: freq.values()) {
+                    count += val;
                 }
-                System.out.print("\n  count: " + count);
-                if(count == 3)
+                if(count >=6)
                     return true;
             }
             return false;
         }
-}
+    }
