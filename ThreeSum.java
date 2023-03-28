@@ -49,8 +49,6 @@ public class ThreeSum {
 
             List<List<Integer>> tripletsArr = new ArrayList<>();
 
-
-            // int triplets = new int[nums.length][nums.length];
             for(i = 0; i < nums.length - 2; i++)
             {
                 for(j=i+1; j< nums.length - 1; j++) {
@@ -61,9 +59,11 @@ public class ThreeSum {
                             triplets.add(nums[j]);
                             triplets.add(nums[k]);
                         }
+                        System.out.println("1. triplets: " + triplets);
                         if(!triplets.isEmpty() && !isRedundant(triplets, tripletsArr))
                             tripletsArr.add(triplets);
                     }
+                    System.out.println("1. tripletsArr: " + tripletsArr);
                 }
             }
             return tripletsArr;
@@ -73,6 +73,9 @@ public class ThreeSum {
             if(tripletsArr.isEmpty())
                 return false;
             Map<Integer, Integer> freq = new HashMap<>();
+
+            System.out.println("triplets: " + triplets);
+            System.out.println("tripletArr : " + tripletsArr);
 
             for(var val: triplets) {
                 if(freq.get(val) == null )
@@ -91,8 +94,15 @@ public class ThreeSum {
                 for(var val: freq.values()) {
                     count += val;
                 }
+                System.out.println("freq: " + freq + ", count: " + count);
                 if(count >=6)
                     return true;
+                else {
+                    for(var value: index) {
+                        if(freq.containsKey(value))
+                            freq.put(value, freq.get(value) - 1);
+                    }
+                }
             }
             return false;
         }
