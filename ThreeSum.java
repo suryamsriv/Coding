@@ -65,83 +65,38 @@ public class ThreeSum {
                     }
                     k = j + 1;
                 }
-
-                if(!triplets.isEmpty() && !isRedundant(triplets, tripletsArr))
+                if(!triplets.isEmpty() && !tripletsArr.contains(triplets) && !isRedundant(triplets, tripletsArr))
                     tripletsArr.add(triplets);
             }
-            // }
-
-
-            // for(i = 0; i < nums.length - 2; i += 2)
-            // {
-            //     for(j=i+1; j< nums.length - 1; j += 1) {
-            //         for(k = j +1; k< nums.length; k++) {
-            //             ArrayList<Integer> triplets = new ArrayList<>();
-            //             if(nums[i] + nums[j] + nums[k] == 0) {
-            //                 triplets.add(nums[i]);
-            //                 triplets.add(nums[j]);
-            //                 triplets.add(nums[k]);
-            //             }
-
-            //         if(!triplets.isEmpty() && !isRedundant(triplets, tripletsArr))
-            //             tripletsArr.add(triplets);
-            //         }
-            //     }
             return tripletsArr;
-            // }
         }
 
         private boolean isRedundant(ArrayList<Integer> triplets, List<List<Integer>> tripletsArr) {
             if(tripletsArr.isEmpty())
                 return false;
-            Map<Integer, Integer> freq = new HashMap<>();
-            List<Integer> checked;
 
-            System.out.println("1. triplets: " + triplets);
-            int count;
-            for(var arr: tripletsArr) {
-                checked = new ArrayList<>();
-                count = 0;
-                for(var val : triplets) {
-                    if(arr.contains(val) && !checked.contains(val))
-                        count++;
-                    checked.add(val);
+            HashMap<Integer,Integer> map1 = new HashMap<>();
+
+            for(var v1: triplets)
+            {
+                if(map1.containsKey(v1))
+                    map1.put(v1, map1.get(v1) + 1);
+                else
+                    map1.put(v1, 1);
+            }
+
+            for(var v2: tripletsArr) {
+                HashMap<Integer,Integer> map2 = new HashMap<>();
+                for(var v3: v2) {
+                    if(map2.containsKey(v3))
+                        map2.put(v3, map2.get(v3) + 1);
+                    else
+                        map2.put(v3, 1);
                 }
-                if(count == 3)
+
+                if(map2.equals(map1))
                     return true;
             }
             return false;
-
-
-            //     System.out.println(triplets);
-            //     System.out.println("tripletsArr: " + tripletsArr);
-            //     for(var val: triplets) {
-            //         if(freq.get(val) == null )
-            //             freq.put(val, 1);
-            //         else
-            //             freq.put(val, freq.get(val) + 1);
-            //     }
-
-            //     for(var index : tripletsArr) {
-            //         for(var value: index) {
-            //             if(freq.containsKey(value))
-            //                 freq.put(value, freq.get(value) + 1);
-            //         }
-
-            //         int count = 0;
-            //         for(var val: freq.values()) {
-            //             count += val;
-            //             }
-            //             System.out.println("count : " + count);
-            //             if(count >=6)
-            //                 return true;
-            //             else {
-            //                 for(var value: index) {
-            //                     if(freq.containsKey(value))
-            //                         freq.put(value, freq.get(value) - 1);
-            //                     }
-            //             }
-            //     }
-            // return false;
         }
     }
