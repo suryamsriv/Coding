@@ -35,6 +35,7 @@ Both list1 and list2 are sorted in non-decreasing order.
  */
 
 public class MergeTwoSortedLists {
+
     /**
      * Definition for singly-linked list.
      * public class ListNode {
@@ -55,8 +56,7 @@ public class MergeTwoSortedLists {
             if(list2 == null && list1 != null)
                 return list1;
 
-            var current1 = list1;
-            var current2 = list2;
+            boolean isList1 = true;
             ListNode previous;
             ListNode other;
             if(list1.val <= list2.val){
@@ -66,22 +66,24 @@ public class MergeTwoSortedLists {
             else{
                 previous = list2;
                 other = list1;
+                isList1 = false;
             }
 
             var current = previous.next;
 
-            while(current != null) {
+            while(current != null && other != null) {
                 if(current.val > other.val) {
-                    previous.next = other;
-                    previous = other;
-                    other = current;
-                    current = previous.next;
+                    ListNode node = new ListNode(other.val, previous.next);
+                    previous.next = node;
+                    previous = node;
+                    other = other.next;
                 }
                 else {
-                    previous = previous.next;
                     current = current.next;
+                    previous = previous.next;
                 }
             }
+
 
             while(other != null) {
                 previous.next = other;
@@ -89,6 +91,9 @@ public class MergeTwoSortedLists {
                 other = other.next;
             }
 
-            return list1;
+            if(isList1)
+                return list1;
+            else
+                return list2;
         }
-}
+    }
