@@ -32,7 +32,7 @@ Constraints:
 str1 and str2 consist of English uppercase letters.
  */
 
-package may;
+package may.code;
 
 public class StringGCD {
         public String gcdOfStrings(String str1, String str2) {
