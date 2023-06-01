@@ -60,7 +60,7 @@ public class MergeKSortedLists {
             // if(lists.length >= 0)
             var mergedList = new ListNode();
 
-            ListNode head = list[0];
+            ListNode head = lists[0];
             ListNode tail = null;
 
             for(int index=0; index < lists.length; index++) {
