@@ -434,14 +434,14 @@ public class Practice {
             while(true) {
                 if(value < current.value) {
                     if(current.leftChild == null) {
-                        current.leftChild = null;
+                        current.leftChild = node;
                         break;
                     }
                     current = current.leftChild;
                 }
                 else {
                     if(current.rightChild == null) {
-                        current.rightChild = value;
+                        current.rightChild = node;
                         break;
                     }
                     current = current.rightChild;
